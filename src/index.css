@@ -1,0 +1,23 @@
+.app {
+  padding: 20px;
+  font-family: sans-serif;
+}
+
+.visual-area {
+  display: flex;
+  align-items: flex-end;
+  gap: 5px;
+  height: 300px;
+  margin-top: 20px;
+  border: 1px solid #ddd;
+  padding: 10px;
+}
+
+.bar {
+  width: 20px;
+  background-color: #4f46e5;
+  transition: height 0.3s ease;
+}
+.bar.active {
+  background-color: #f97316; /* orange */
+}
