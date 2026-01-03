@@ -30,11 +30,7 @@ function App() {
   // algorithm selector
   // "bubble" | "selection"
   const [algorithm, setAlgorithm] = useState("bubble");
-  const finishSorting = () => {
-  setActiveIndices([]);
-  setStatus("idle");
-};
-
+  
 
 
   // ---------- START SORT ----------
@@ -59,6 +55,7 @@ function App() {
   };
 
   // ---------- AUTO SORTING ENGINE ----------
+  
   useEffect(() => {
     if (status !== "sorting") return;
     if (mode !== "auto") return;
