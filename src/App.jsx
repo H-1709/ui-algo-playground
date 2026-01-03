@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import VisualArea from "./components/VisualArea";
 import { generateArray } from "./utils/generateArray";
 import { bubbleSortSteps } from "./algorithms/bubbleSort";
+import { insertionSortSteps } from "./algorithms/insertionSort";
+import { selectionSortSteps } from "./algorithms/selectionSort";
 
 function App() {
   // core data
@@ -23,11 +25,27 @@ function App() {
   // "auto" | "step"
   const [mode, setMode] = useState("auto");
 
+  // algorithm selector
+  // "bubble" | "selection"
+  const [algorithm, setAlgorithm] = useState("bubble");
+
+
+
   // ---------- START SORT ----------
-  const startBubbleSort = () => {
+  const startSort = () => {
     if (status !== "idle") return;
 
-    const generatedSteps = bubbleSortSteps(array);
+    let generatedSteps = [];
+
+    if (algorithm === "bubble") {
+      generatedSteps = bubbleSortSteps(array);
+    } else if (algorithm === "selection") {
+      generatedSteps = selectionSortSteps(array);
+    } else if (algorithm === "insertion") {
+      generatedSteps = insertionSortSteps(array);
+    }
+
+
     setSteps(generatedSteps);
     setCurrentStep(0);
     setActiveIndices([]);
@@ -98,6 +116,24 @@ function App() {
     <div className="app">
       <h2>UI Playground of Algorithms</h2>
 
+      {/* Algorithm Selector */}
+      <div style={{ marginBottom: "10px" }}>
+        <label>
+          Algorithm:
+          <select
+  value={algorithm}
+  onChange={(e) => setAlgorithm(e.target.value)}
+  disabled={status !== "idle"}
+>
+  <option value="bubble">Bubble Sort</option>
+  <option value="selection">Selection Sort</option>
+  <option value="insertion">Insertion Sort</option>
+</select>
+
+        </label>
+      </div>
+      
+
       {/* Mode Selector */}
       <div style={{ marginBottom: "10px" }}>
         <label>
@@ -113,7 +149,7 @@ function App() {
         </label>
       </div>
 
-      {/* Speed Control (Auto only) */}
+      {/* Speed Control */}
       <div style={{ marginBottom: "10px" }}>
         <label>
           Speed:
@@ -138,11 +174,8 @@ function App() {
           Generate New Array
         </button>
 
-        <button
-          onClick={startBubbleSort}
-          disabled={status !== "idle"}
-        >
-          Start Bubble Sort
+        <button onClick={startSort} disabled={status !== "idle"}>
+          Start Sorting
         </button>
 
         <button
