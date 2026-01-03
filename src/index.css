@@ -83,7 +83,130 @@ body {
   flex: 1;
   background: linear-gradient(180deg, #6366f1, #8b5cf6);
   border-radius: 6px 6px 0 0;
-  transition: height 0.25s ease, background 0.25s ease;
+  transition: height 0.25s ease ;
+}
+
+.bar.active {
+  background: linear-gradient(180deg, #f97316, #fb923c);
+}
+.info-panel {
+  background: rgba(17, 24, 39, 0.6);
+  border-radius: 12px;
+  padding: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e5e7eb;
+}
+
+.info-panel strong {
+  font-size: 1.1rem;
+  color: #a78bfa; /* purple accent */
+}
+
+.info-panel p {
+  color: #c7d2fe;
+  margin-top: 6px;
+}
+
+.info-panel ul {
+  color: #e5e7eb;
+}
+
+.info-panel em {
+  color: #9ca3af;
+  font-style: italic;
+}
+.controls-card > div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.controls-card label {
+  color: #d1d5db;
+  font-size: 0.9rem;
+}
+.controls-card button {
+  background: linear-gradient(135deg, #4f46e5, #7c3aed);
+  border: none;
+  color: white;
+}
+
+.controls-card button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.content-layout {
+  display: grid;
+  grid-template-columns: 2.2fr 1.3fr;
+  gap: 24px;
+  align-items: stretch;
+}
+
+/* Visual should feel dominant */
+.visual-card {
+  padding: 30px 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Info should feel compact */
+.info-card {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Mobile fallback */
+@media (max-width: 900px) {
+  .content-layout {
+    grid-template-columns: 1fr;
+  }
+}
+.info-panel em {
+  display: block;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(255,255,255,0.1);
+}
+.visual-header {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+.visual-card {
+  padding: 24px;
+  height: 360px;              /* 🔥 force height */
+  display: flex;
+  flex-direction: column;
+}
+
+.visual-header {
+  color: #9ca3af;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 12px;
+}
+
+.visual-area {
+  flex: 1;                    /* 🔥 fill remaining space */
+  display: flex;
+  align-items: flex-end;      /* bars grow from bottom */
+  gap: 6px;
+}
+.visual-area {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.bar {
+  flex: 1;
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+  border-radius: 6px 6px 0 0;
+  transition: height 0.25s ease;
 }
 
 .bar.active {

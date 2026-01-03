@@ -139,140 +139,134 @@ function App() {
       <header className="header">
         <h1>Sorting Visualizer</h1>
         <p>Explore how sorting algorithms work</p>
-        </header>
-  
-       <div className="card controls-card">
+      </header>
 
-      {/* Algorithm Selector */}
-      <div style={{ marginBottom: "10px" }}>
-        <label>
-          Algorithm:
-          <select
-            value={algorithm}
-            onChange={(e) => setAlgorithm(e.target.value)}
-            disabled={status !== "idle"}
-          >
-            <option value="bubble">Bubble Sort</option>
-            <option value="selection">Selection Sort</option>
-            <option value="insertion">Insertion Sort</option>
-          </select>
+      <div className="card controls-card">
 
-        </label>
-      </div>
+        {/* Algorithm Selector */}
+        <div style={{ marginBottom: "10px" }}>
+          <label>
+            Algorithm:
+            <select
+              value={algorithm}
+              onChange={(e) => setAlgorithm(e.target.value)}
+              disabled={status !== "idle"}
+            >
+              <option value="bubble">Bubble Sort</option>
+              <option value="selection">Selection Sort</option>
+              <option value="insertion">Insertion Sort</option>
+            </select>
 
-
-      {/* Mode Selector */}
-      <div style={{ marginBottom: "10px" }}>
-        <label>
-          Mode:
-          <select
-            value={mode}
-            onChange={(e) => setMode(e.target.value)}
-            disabled={status !== "idle"}
-          >
-            <option value="auto">Auto</option>
-            <option value="step">Step-by-step</option>
-          </select>
-        </label>
-      </div>
-
-      {/* Speed Control */}
-      <div style={{ marginBottom: "10px" }}>
-        <label>
-          Speed:
-          <input
-            type="range"
-            min="50"
-            max="1000"
-            step="50"
-            value={speed}
-            onChange={(e) => setSpeed(Number(e.target.value))}
-            disabled={status !== "idle" || mode !== "auto"}
-          />
-        </label>
-      </div>
-
-      {/* Controls */}
-      <div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
-        <button
-          onClick={() => setArray(generateArray())}
-          disabled={status !== "idle"}
-        >
-          Generate New Array
-        </button>
-
-        <button onClick={startSort} disabled={status !== "idle"}>
-          Start Sorting
-        </button>
-
-        <button
-          onClick={() => setStatus("paused")}
-          disabled={status !== "sorting" || mode === "step"}
-        >
-          Pause
-        </button>
-
-        <button
-          onClick={() => setStatus("sorting")}
-          disabled={status !== "paused" || mode === "step"}
-        >
-          Resume
-        </button>
-      </div>
+          </label>
+        </div>
 
 
-      {/* Step-by-step buttons */}
-      {mode === "step" && (
+        {/* Mode Selector */}
+        <div style={{ marginBottom: "10px" }}>
+          <label>
+            Mode:
+            <select
+              value={mode}
+              onChange={(e) => setMode(e.target.value)}
+              disabled={status !== "idle"}
+            >
+              <option value="auto">Auto</option>
+              <option value="step">Step-by-step</option>
+            </select>
+          </label>
+        </div>
+
+        {/* Speed Control */}
+        <div style={{ marginBottom: "10px" }}>
+          <label>
+            Speed:
+            <input
+              type="range"
+              min="50"
+              max="1000"
+              step="50"
+              value={speed}
+              onChange={(e) => setSpeed(Number(e.target.value))}
+              disabled={status !== "idle" || mode !== "auto"}
+            />
+          </label>
+        </div>
+
+        {/* Controls */}
         <div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
-          <button onClick={prevStep} disabled={status !== "sorting"}>
-            Prev
+          <button
+            onClick={() => setArray(generateArray())}
+            disabled={status !== "idle"}
+          >
+            Generate New Array
           </button>
-          <button onClick={nextStep} disabled={status !== "sorting"}>
-            Next
+
+          <button onClick={startSort} disabled={status !== "idle"}>
+            Start Sorting
+          </button>
+
+          <button
+            onClick={() => setStatus("paused")}
+            disabled={status !== "sorting" || mode === "step"}
+          >
+            Pause
+          </button>
+
+          <button
+            onClick={() => setStatus("sorting")}
+            disabled={status !== "paused" || mode === "step"}
+          >
+            Resume
           </button>
         </div>
-      )}
+
+
+        {/* Step-by-step buttons */}
+        {mode === "step" && (
+          <div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
+            <button onClick={prevStep} disabled={status !== "sorting"}>
+              Prev
+            </button>
+            <button onClick={nextStep} disabled={status !== "sorting"}>
+              Next
+            </button>
+          </div>
+        )}
       </div>
-      <div className="card info-card">
-      <div
-        style={{
-          padding: "12px",
-          marginBottom: "15px",
-          border: "1px solid #ddd",
-          borderRadius: "6px",
-          background: "#fafafa",
-        }}
-      >
-        <strong>{algorithmInfo[algorithm].name}</strong>
+      <div className="content-layout">
+        <div className="card visual-card">
+  <div className="visual-header">Array Visualization</div>
 
-        <p style={{ margin: "6px 0" }}>
-          {algorithmInfo[algorithm].description}
-        </p>
-
-        <div style={{ marginTop: "8px", fontSize: "14px" }}>
-          <strong>Time Complexity</strong>
-          <ul style={{ margin: "4px 0 8px 18px" }}>
-            <li>Best: {algorithmInfo[algorithm].time.best}</li>
-            <li>Average: {algorithmInfo[algorithm].time.average}</li>
-            <li>Worst: {algorithmInfo[algorithm].time.worst}</li>
-          </ul>
-
-          <strong>Space Complexity:</strong>{" "}
-          {algorithmInfo[algorithm].space}
-        </div>
-
-        <em style={{ display: "block", marginTop: "6px" }}>
-          {getStepExplanation()}
-        </em>
-      </div>
+  <VisualArea array={array} activeIndices={activeIndices} />
 </div>
 
 
-      {/* Visualization */}
-      <div className="card visual-card">
-    <VisualArea array={array} activeIndices={activeIndices} />
-  </div>
-</div>
+        <div className="card info-card">
+          <div className="info-panel">
+            <strong>{algorithmInfo[algorithm].name}</strong>
+
+            <p>{algorithmInfo[algorithm].description}</p>
+
+            <div className="complexity">
+              <strong>Time Complexity</strong>
+              <ul>
+                <li>Best: {algorithmInfo[algorithm].time.best}</li>
+                <li>Average: {algorithmInfo[algorithm].time.average}</li>
+                <li>Worst: {algorithmInfo[algorithm].time.worst}</li>
+              </ul>
+
+              <strong>Space Complexity:</strong>{" "}
+              {algorithmInfo[algorithm].space}
+            </div>
+
+            <em>{getStepExplanation()}</em>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
   );
 }
 
