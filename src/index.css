@@ -1,23 +1,91 @@
-.app {
-  padding: 20px;
-  font-family: sans-serif;
+body {
+  margin: 0;
+  font-family: "Inter", system-ui, sans-serif;
+  background: radial-gradient(circle at top, #111827, #020617);
+  color: #e5e7eb;
 }
 
+.app {
+  max-width: 1200px;
+  margin: auto;
+  padding: 40px 20px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #8b5cf6, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.header p {
+  color: #9ca3af;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 14px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+}
+
+.controls-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.controls-card select,
+.controls-card input[type="range"],
+.controls-card button {
+  background: #111827;
+  color: #e5e7eb;
+  border: 1px solid #374151;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.controls-card button {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.controls-card button:hover {
+  background: #6366f1;
+  border-color: #6366f1;
+}
+
+.info-card {
+  font-size: 0.95rem;
+  color: #d1d5db;
+}
+
+.visual-card {
+  padding: 30px 20px;
+}
 .visual-area {
   display: flex;
   align-items: flex-end;
-  gap: 5px;
-  height: 300px;
-  margin-top: 20px;
-  border: 1px solid #ddd;
-  padding: 10px;
+  gap: 4px;
+  height: 280px;
 }
 
 .bar {
-  width: 20px;
-  background-color: #4f46e5;
-  transition: height 0.3s ease;
+  flex: 1;
+  background: linear-gradient(180deg, #6366f1, #8b5cf6);
+  border-radius: 6px 6px 0 0;
+  transition: height 0.25s ease, background 0.25s ease;
 }
+
 .bar.active {
-  background-color: #f97316; /* orange */
+  background: linear-gradient(180deg, #f97316, #fb923c);
 }

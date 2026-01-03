@@ -8,6 +8,7 @@ import { algorithmInfo } from "./utils/algorithmInfo";
 
 
 function App() {
+
   // core data
   const [array, setArray] = useState(generateArray());
 
@@ -30,7 +31,7 @@ function App() {
   // algorithm selector
   // "bubble" | "selection"
   const [algorithm, setAlgorithm] = useState("bubble");
-  
+
 
 
   // ---------- START SORT ----------
@@ -55,7 +56,7 @@ function App() {
   };
 
   // ---------- AUTO SORTING ENGINE ----------
-  
+
   useEffect(() => {
     if (status !== "sorting") return;
     if (mode !== "auto") return;
@@ -114,45 +115,51 @@ function App() {
     setCurrentStep(prevIndex);
   };
   const getStepExplanation = () => {
-  if (status !== "sorting") return "Ready to start.";
+    if (status !== "sorting") return "Ready to start.";
 
-  const step = steps[currentStep];
+    const step = steps[currentStep];
 
-  if (!step) return "Sorting completed.";
+    if (!step) return "Sorting completed.";
 
-  if (step.type === "compare") {
-    return "Comparing two elements to check their order.";
-  }
+    if (step.type === "compare") {
+      return "Comparing two elements to check their order.";
+    }
 
-  if (step.type === "swap") {
-    return "Swapping elements because they are in the wrong order.";
-  }
+    if (step.type === "swap") {
+      return "Swapping elements because they are in the wrong order.";
+    }
 
-  return "";
-};
+    return "";
+  };
 
   // ---------- UI ----------
   return (
+
     <div className="app">
-      <h2>UI Playground of Algorithms</h2>
+      <header className="header">
+        <h1>Sorting Visualizer</h1>
+        <p>Explore how sorting algorithms work</p>
+        </header>
+  
+       <div className="card controls-card">
 
       {/* Algorithm Selector */}
       <div style={{ marginBottom: "10px" }}>
         <label>
           Algorithm:
           <select
-  value={algorithm}
-  onChange={(e) => setAlgorithm(e.target.value)}
-  disabled={status !== "idle"}
->
-  <option value="bubble">Bubble Sort</option>
-  <option value="selection">Selection Sort</option>
-  <option value="insertion">Insertion Sort</option>
-</select>
+            value={algorithm}
+            onChange={(e) => setAlgorithm(e.target.value)}
+            disabled={status !== "idle"}
+          >
+            <option value="bubble">Bubble Sort</option>
+            <option value="selection">Selection Sort</option>
+            <option value="insertion">Insertion Sort</option>
+          </select>
 
         </label>
       </div>
-      
+
 
       {/* Mode Selector */}
       <div style={{ marginBottom: "10px" }}>
@@ -213,6 +220,7 @@ function App() {
         </button>
       </div>
 
+
       {/* Step-by-step buttons */}
       {mode === "step" && (
         <div style={{ display: "flex", gap: "10px", marginBottom: "15px" }}>
@@ -224,27 +232,47 @@ function App() {
           </button>
         </div>
       )}
+      </div>
+      <div className="card info-card">
       <div
-  style={{
-    padding: "12px",
-    marginBottom: "15px",
-    border: "1px solid #ddd",
-    borderRadius: "6px",
-    background: "#fafafa",
-  }}
->
-  <strong>{algorithmInfo[algorithm].name}</strong>
-  <p style={{ margin: "6px 0" }}>
-    {algorithmInfo[algorithm].description}
-  </p>
+        style={{
+          padding: "12px",
+          marginBottom: "15px",
+          border: "1px solid #ddd",
+          borderRadius: "6px",
+          background: "#fafafa",
+        }}
+      >
+        <strong>{algorithmInfo[algorithm].name}</strong>
 
-  <em>{getStepExplanation()}</em>
+        <p style={{ margin: "6px 0" }}>
+          {algorithmInfo[algorithm].description}
+        </p>
+
+        <div style={{ marginTop: "8px", fontSize: "14px" }}>
+          <strong>Time Complexity</strong>
+          <ul style={{ margin: "4px 0 8px 18px" }}>
+            <li>Best: {algorithmInfo[algorithm].time.best}</li>
+            <li>Average: {algorithmInfo[algorithm].time.average}</li>
+            <li>Worst: {algorithmInfo[algorithm].time.worst}</li>
+          </ul>
+
+          <strong>Space Complexity:</strong>{" "}
+          {algorithmInfo[algorithm].space}
+        </div>
+
+        <em style={{ display: "block", marginTop: "6px" }}>
+          {getStepExplanation()}
+        </em>
+      </div>
 </div>
 
 
       {/* Visualization */}
-      <VisualArea array={array} activeIndices={activeIndices} />
-    </div>
+      <div className="card visual-card">
+    <VisualArea array={array} activeIndices={activeIndices} />
+  </div>
+</div>
   );
 }
 
