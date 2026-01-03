@@ -4,6 +4,8 @@ import { generateArray } from "./utils/generateArray";
 import { bubbleSortSteps } from "./algorithms/bubbleSort";
 import { insertionSortSteps } from "./algorithms/insertionSort";
 import { selectionSortSteps } from "./algorithms/selectionSort";
+import { algorithmInfo } from "./utils/algorithmInfo";
+
 
 function App() {
   // core data
@@ -28,6 +30,10 @@ function App() {
   // algorithm selector
   // "bubble" | "selection"
   const [algorithm, setAlgorithm] = useState("bubble");
+  const finishSorting = () => {
+  setActiveIndices([]);
+  setStatus("idle");
+};
 
 
 
@@ -110,6 +116,23 @@ function App() {
     setActiveIndices([]);
     setCurrentStep(prevIndex);
   };
+  const getStepExplanation = () => {
+  if (status !== "sorting") return "Ready to start.";
+
+  const step = steps[currentStep];
+
+  if (!step) return "Sorting completed.";
+
+  if (step.type === "compare") {
+    return "Comparing two elements to check their order.";
+  }
+
+  if (step.type === "swap") {
+    return "Swapping elements because they are in the wrong order.";
+  }
+
+  return "";
+};
 
   // ---------- UI ----------
   return (
@@ -204,6 +227,23 @@ function App() {
           </button>
         </div>
       )}
+      <div
+  style={{
+    padding: "12px",
+    marginBottom: "15px",
+    border: "1px solid #ddd",
+    borderRadius: "6px",
+    background: "#fafafa",
+  }}
+>
+  <strong>{algorithmInfo[algorithm].name}</strong>
+  <p style={{ margin: "6px 0" }}>
+    {algorithmInfo[algorithm].description}
+  </p>
+
+  <em>{getStepExplanation()}</em>
+</div>
+
 
       {/* Visualization */}
       <VisualArea array={array} activeIndices={activeIndices} />
