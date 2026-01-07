@@ -62,6 +62,7 @@ function App() {
     if (mode !== "auto") return;
 
     if (currentStep >= steps.length) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setActiveIndices([]);
       setStatus("idle");
       return;
